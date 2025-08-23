@@ -14,18 +14,18 @@
     <form method="POST" action="login_process.php">
       <div class="mb-3">
         <label for="email" class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <input type="email" placeholder="email" class="form-control" id="email" name="email" required>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <input type="password" placeholder="password" class="form-control" id="password" name="password" required>
       </div>
 
       <button type="submit" class="btn btn-primary w-100">Entrar</button>
 
       <p class="text-center mt-3">
-        ¿No tienes cuenta? <a href="register.php">Regístrate aquí</a>
+        ¿No tienes cuenta? <a href="/index.php?url=register">Regístrate aquí</a>
       </p>
     </form>
   </div>

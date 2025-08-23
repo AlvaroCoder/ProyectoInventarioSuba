@@ -13,29 +13,29 @@
     <h3 class="text-center mb-4">Crear Cuenta</h3>
     <form method="POST" action="register_process.php">
       <div class="mb-3">
-        <label for="name" class="form-label">Nombre completo</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+        <label for="name" class="form-label">Nombre de usuario</label>
+        <input type="text" placeholder="Nombre de usuario" class="form-control" id="name" name="name" required>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <input type="email" placeholder="email" class="form-control" id="email" name="email" required>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <input type="password" placeholder="contraseña" class="form-control" id="password" name="password" required>
       </div>
 
       <div class="mb-3">
         <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        <input type="password" placeholder="Confirmar contraseña" class="form-control" id="confirmPassword" name="confirmPassword" required>
       </div>
 
       <button type="submit" class="btn btn-success w-100">Registrarse</button>
 
       <p class="text-center mt-3">
-        ¿Ya tienes cuenta? <a href="login.php">Inicia sesión aquí</a>
+        ¿Ya tienes cuenta? <a href="/index.php?url=login">Inicia sesión aquí</a>
       </p>
     </form>
   </div>
