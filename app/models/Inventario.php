@@ -29,6 +29,9 @@ class Inventario {
         return $stmt->execute();
     }
 
+    public function update($id){
+        
+    }
 
 
 }

@@ -18,12 +18,18 @@ $router->add('register', function(){
     require_once './app/views/auth/register.php';
 });
 
-$router->add('dashboard', function(){
-    require_once './app/views/home/homeDashboard.php';
+$base_route_dashboard = "dashboard";
+
+$router->add($base_route_dashboard, function(){
+    require_once './app/views/dashboard/index.php';
 });
 
-$router->add('dashboard/inventario',function(){
-    require_once './app/views/inventario/index.php';
+$router->add($base_route_dashboard . '/inventario',function(){
+    require_once './app/views/dashboard/inventario/index.php';
+});
+
+$router->add($base_route_dashboard . '/caja',function(){
+    require_once './app/views/dashboard/caja/index.php';
 });
 
 $url = $_GET['url'] ?? '';

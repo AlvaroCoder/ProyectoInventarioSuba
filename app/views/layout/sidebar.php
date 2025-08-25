@@ -1,3 +1,6 @@
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <!-- Botón para abrir el sidebar en móviles -->
 <nav class="navbar navbar-light bg-light d-md-none">
     <div class="container-fluid">
@@ -27,7 +30,7 @@
             </a>
         </li>
         <li class="nav-item mb-2">
-            <a href="/caja" class="nav-link text-white d-flex align-items-center">
+            <a href="/index.php?url=dashboard/caja" class="nav-link text-white d-flex align-items-center">
                 <i data-lucide="credit-card" class="me-2"></i>
                 Caja
             </a>
@@ -36,8 +39,8 @@
     <hr>
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://via.placeholder.com/40" alt="User" width="32" height="32" class="rounded-circle me-2">
-            <strong>Usuario</strong>
+        <span class="material-icons me-2">account_circle</span>
+        <strong>Usuario</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
             <li><a class="dropdown-item" href="#">Perfil</a></li>

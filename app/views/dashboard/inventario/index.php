@@ -51,7 +51,7 @@
 </head>
 <body class="bg-light">
 
-<?php require_once __DIR__ . '/../layout/sidebar.php' ?>
+<?php require_once __DIR__ . '/../../layout/sidebar.php' ?>
 <section class="main-content">
 <div class="container my-4">
     <h2 class="mb-4 text-primary fw-bold">Inventario de Productos</h2>
