@@ -1,11 +1,9 @@
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
+    RewriteEngine On
+    RewriteBase /
 
-# Si la petición no es un archivo o directorio existente
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Redirige todo a index.php con el parámetro 'url'
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+    # Redirige todo menos archivos y carpetas existentes a index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>

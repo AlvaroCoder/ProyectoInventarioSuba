@@ -15,13 +15,13 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-2">
-            <a href="/homeDashboard" class="nav-link text-white d-flex align-items-center">
+            <a href="/index.php?url=dashboard" class="nav-link text-white d-flex align-items-center">
                 <i data-lucide="layout-dashboard" class="me-2"></i>
                 Dashboard
             </a>
         </li>
         <li class="nav-item mb-2">
-            <a href="/inventario" class="nav-link text-white d-flex align-items-center">
+            <a href="/index.php?url=dashboard/inventario" class="nav-link text-white d-flex align-items-center">
                 <i data-lucide="package" class="me-2"></i>
                 Inventario
             </a>

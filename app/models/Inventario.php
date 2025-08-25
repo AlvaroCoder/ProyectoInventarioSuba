@@ -22,6 +22,15 @@ class Inventario {
         $stmt->bindParam(":precio", $precio);
         return $stmt->execute();
     }
+
+    public function delete($id){
+        $stmt = $this->db->prepare("DELETE FROM productos WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
+
+
+
 }
 
 ?>

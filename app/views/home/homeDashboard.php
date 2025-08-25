@@ -50,16 +50,13 @@
 </head>
 <body>
 
-<!-- Sidebar -->
 <?php require_once __DIR__ . '/../layout/sidebar.php' ?>
 
-<!-- Contenido principal -->
 <div class="main-content">
     <div class="container-fluid">
         <h2 class="fw-bold text-primary mb-3">Panel de Control</h2>
         <p class="text-muted mb-4">Bienvenido al dashboard principal. Aquí puedes visualizar el resumen general.</p>
 
-        <!-- KPIs -->
         <div class="row mb-4">
             <div class="col-md-4 mb-3">
                 <div class="card kpi-card shadow-sm text-center p-3">

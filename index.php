@@ -22,6 +22,10 @@ $router->add('dashboard', function(){
     require_once './app/views/home/homeDashboard.php';
 });
 
+$router->add('dashboard/inventario',function(){
+    require_once './app/views/inventario/index.php';
+});
+
 $url = $_GET['url'] ?? '';
 $router->dispatch($url);
 
