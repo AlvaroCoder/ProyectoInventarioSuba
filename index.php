@@ -32,6 +32,10 @@ $router->add($base_route_dashboard . '/caja',function(){
     require_once './app/views/dashboard/caja/index.php';
 });
 
+$router->add($base_route_dashboard . "/ventas",function(){
+    require_once './app/views/dashboard/ventas/index.php';
+});
+
 $url = $_GET['url'] ?? '';
 $router->dispatch($url);
 

@@ -30,6 +30,12 @@
             </a>
         </li>
         <li class="nav-item mb-2">
+            <a href="/index.php?url=dashboard/ventas" class="nav-link text-white d-flex align-items-center">
+                <span class="material-icons me-2">point_of_sale</span>
+                Ventas
+            </a>
+        </li>
+        <li class="nav-item mb-2">
             <a href="/index.php?url=dashboard/caja" class="nav-link text-white d-flex align-items-center">
                 <i data-lucide="credit-card" class="me-2"></i>
                 Caja
