@@ -30,7 +30,7 @@ class Inventario {
     }
 
     public function update($id){
-        
+        $stmt = $this->db->prepare("INSERT INTO productos WHERE ");
     }
 
 

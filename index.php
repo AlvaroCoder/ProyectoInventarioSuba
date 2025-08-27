@@ -36,6 +36,10 @@ $router->add($base_route_dashboard . "/ventas",function(){
     require_once './app/views/dashboard/ventas/index.php';
 });
 
+$router->add($base_route_dashboard . "/ventas/generar_boleta", function(){
+    require_once './app/views/dashboard/ventas/generar_boleta.php';
+});
+
 $url = $_GET['url'] ?? '';
 $router->dispatch($url);
 

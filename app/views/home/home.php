@@ -41,7 +41,7 @@
     <div class="hero-section">
         <h1>Bienvenido a Minimarket SUBA</h1>
         <p class="lead">Tu solución segura y confiable para la gestión de tu negocio</p>
-        <a href="login" class="btn btn-light btn-lg mt-3">Iniciar Sesión</a>
+        <a href="index.php?url=login" class="btn btn-light btn-lg mt-3">Iniciar Sesión</a>
         <a href="register" class="btn btn-outline-light btn-lg mt-3">Registrarse</a>
     </div>
 
