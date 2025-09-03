@@ -1,34 +1,26 @@
-<?php 
-
+<?php
 class Conexion {
     private static $instance = null;
-    private $pdo;
-    
-    private function __contruct(){
-        $config = require_once '../../config/database.php';
+    private $connection;
 
+    private function __construct() {
         try {
-            $dsn = "mysql:host={$config['localhost']};dbname={$config['inventario_db']};charset={$config['db_charset']}";
-            $this->pdo = new PDO($dsn, $config['root'], $config['root123456']);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        } catch (PDOException $err) {
-            die("Error de conexion : ".$err->getMessage());
+            $this->connection = new PDO("mysql:host=localhost;dbname=inventario_db;charset=utf8", "root", "root123456");
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
 
-        // Devuelve la instancia única de la conexión
-        public static function getInstance() {
-            if (self::$instance === null) {
-                self::$instance = new Conexion();
-            }
-            return self::$instance;
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new Conexion();
         }
-    
-        // Devuelve el objeto PDO
-        public function getConnection() {
-            return $this->pdo;
-        }
-}
+        return self::$instance;
+    }
 
+    public function getConnection() {
+        return $this->connection;
+    }
+}
 ?>

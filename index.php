@@ -25,7 +25,9 @@ $router->add($base_route_dashboard, function(){
 });
 
 $router->add($base_route_dashboard . '/inventario',function(){
-    require_once './app/views/dashboard/inventario/index.php';
+    require_once './app/controllers/InventarioController.php';
+    $contoller = new InventarioController();
+    return $contoller->index();
 });
 
 $router->add($base_route_dashboard . '/caja',function(){

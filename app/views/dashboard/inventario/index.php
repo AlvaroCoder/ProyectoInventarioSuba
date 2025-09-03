@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-                body {
+        body {
             background-color: #f8f9fa;
         }
         .kpi-card {
@@ -137,51 +137,37 @@
                             <th>Categoría</th>
                             <th>Stock</th>
                             <th>Precio</th>
-                            <th>Proveedor</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>PRD001</td>
-                            <td>Alimento Premium</td>
-                            <td>Alimentos</td>
-                            <td>50</td>
-                            <td>S/ 45.00</td>
-                            <td>Proveedor A</td>
-                            <td><span class="badge bg-success">Activo</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>PRD002</td>
-                            <td>Collar Ajustable</td>
-                            <td>Accesorios</td>
-                            <td>20</td>
-                            <td>S/ 30.00</td>
-                            <td>Proveedor B</td>
-                            <td><span class="badge bg-warning text-dark">Stock Bajo</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>PRD003</td>
-                            <td>Vacuna Antirrábica</td>
-                            <td>Medicamentos</td>
-                            <td>120</td>
-                            <td>S/ 80.00</td>
-                            <td>Proveedor C</td>
-                            <td><span class="badge bg-success">Activo</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
+                        <?php if(!empty($productos)): ?>
+                            <?php  foreach($productos as $producto)  : ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($producto['id'])?></td>
+                                    <td><?= htmlspecialchars($producto['nombre'])?></td>
+                                    <td><?= htmlspecialchars($producto['cantidad'])?></td>
+                                    <td><?= htmlspecialchars($producto['precio'])?></td>
+                                    <td><?= htmlspecialchars($producto['id'])?></td>
+                                    <td>
+                                        <?php if($producto['cantidad'] <=10 ) : ?>
+                                            <span>Stock Bajo</span>
+                                        <?php else: ?>
+                                            <span>Activo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">Editar</button>
+                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>  
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">No hay productos registrados</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
