@@ -62,7 +62,7 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h6 class="text-muted">Total Productos</h6>
-                    <h3 class="fw-bold text-primary">1,250</h3>
+                    <h3 class="fw-bold text-primary"><?= htmlspecialchars($totalProductos['total']) ?></h3>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h6 class="text-muted">Stock Bajo</h6>
-                    <h3 class="fw-bold text-danger">45</h3>
+                    <h3 class="fw-bold text-danger">0</h3>
                 </div>
             </div>
         </div>
@@ -78,7 +78,9 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h6 class="text-muted">Valor Inventario</h6>
-                    <h3 class="fw-bold text-success">S/ 85,000</h3>
+                    <h3 class="fw-bold text-success">
+                       S/. <?= htmlspecialchars($precioTotal['precioTotal']) ?>
+                    </h3>
                 </div>
             </div>
         </div>
@@ -86,7 +88,7 @@
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h6 class="text-muted">Productos Activos</h6>
-                    <h3 class="fw-bold text-info">1,180</h3>
+                    <h3 class="fw-bold text-info"><?= htmlspecialchars($productosActivos['productosActivos']) ?></h3>
                 </div>
             </div>
         </div>
@@ -127,7 +129,16 @@
     <!-- Tabla de Inventario -->
     <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="mb-3 fw-bold">Lista de Productos</h5>
+            <div class="d-flex flex-row justify-content-between my-4 align-items-center">
+            
+                <h5 class="mb-3 fw-bold">Lista de Productos</h5>
+                <button
+                type="button"
+                class="btn btn-primary"
+                >
+                    Agregar Productos
+                </button>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-primary">
@@ -147,9 +158,9 @@
                                 <tr>
                                     <td><?= htmlspecialchars($producto['id'])?></td>
                                     <td><?= htmlspecialchars($producto['nombre'])?></td>
+                                    <td><?= htmlspecialchars($producto['categoria'])?></td>
                                     <td><?= htmlspecialchars($producto['cantidad'])?></td>
-                                    <td><?= htmlspecialchars($producto['precio'])?></td>
-                                    <td><?= htmlspecialchars($producto['id'])?></td>
+                                    <td>S/.<?= htmlspecialchars($producto['precio'])?></td>
                                     <td>
                                         <?php if($producto['cantidad'] <=10 ) : ?>
                                             <span>Stock Bajo</span>

@@ -23,6 +23,48 @@ class Inventario {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get10FirstProducts(){
+        $sql = "SELECT p.id, p.nombre, p.descripcion, p.cantidad, p.precio,
+                       c.nombre AS categoria, m.nombre AS marca, pr.nombre AS presentacion
+                FROM productos p
+                LEFT JOIN categoria c ON p.idCategoria = c.idCategoria
+                LEFT JOIN marca m ON p.idMarca = m.idMarca
+                LEFT JOIN presentacion pr ON p.idPresentacion = pr.idPresentacion
+                ORDER BY p.id ASC LIMIT 10";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Obtenemos los productos contados
+    public function getCountProducts(){
+        $sql = "SELECT COUNT(id) AS total FROM productos";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getSumProducts(){
+        $sql = "SELECT SUM(precio) AS precioTotal FROM productos";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getCountActiveProducts(){
+        $sql = "SELECT COUNT(id) AS productosActivos FROM productos WHERE cantidad > 20";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getCountInactiveProducts(){
+        $sql = "SELECT COUNT(id) AS productosInactivos FROM productos WHERE cantidad < 20";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // Insertar un producto
     public function insert($nombre, $cantidad, $precio) {
         $stmt = $this->db->prepare("INSERT INTO productos (nombre, cantidad, precio) VALUES (:nombre, :cantidad, :precio)");

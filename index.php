@@ -21,7 +21,9 @@ $router->add('register', function(){
 $base_route_dashboard = "dashboard";
 
 $router->add($base_route_dashboard, function(){
-    require_once './app/views/dashboard/index.php';
+    require_once './app/controllers/BaseController.php';
+    $contoller = new BaseController();
+    return $contoller->index();
 });
 
 $router->add($base_route_dashboard . '/inventario',function(){

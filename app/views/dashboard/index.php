@@ -89,6 +89,9 @@
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">Resumen de Productos</h5>
             </div>
+            <table>
+
+            </table>
             <div class="table-responsive">
                 <table class="table table-striped mb-0">
                     <thead>
@@ -98,34 +101,32 @@
                             <th>Categoría</th>
                             <th>Stock</th>
                             <th>Precio</th>
-                            <th>Última Venta</th>
+                            <th>Activo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Laptop Dell</td>
-                            <td>Electrónica</td>
-                            <td><span class="badge bg-danger">8</span></td>
-                            <td>S/ 3,500</td>
-                            <td>Hoy</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mouse Logitech</td>
-                            <td>Accesorios</td>
-                            <td><span class="badge bg-success">25</span></td>
-                            <td>S/ 150</td>
-                            <td>Ayer</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Teclado Mecánico</td>
-                            <td>Accesorios</td>
-                            <td><span class="badge bg-warning text-dark">10</span></td>
-                            <td>S/ 280</td>
-                            <td>Hace 2 días</td>
-                        </tr>
+                        <?php  if(!empty($resumenProductos)): ?>
+                            <?php  foreach($resumenProductos as $producto)  : ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($producto['id'])?></td>
+                                    <td><?= htmlspecialchars($producto['nombre'])?></td>
+                                    <td><?= htmlspecialchars($producto['categoria'])?></td>
+                                    <td><?= htmlspecialchars($producto['cantidad'])?></td>
+                                    <td>S/.<?= htmlspecialchars($producto['precio'])?></td>
+                                    <td>
+                                        <?php if($producto['cantidad'] <=10 ) : ?>
+                                            <span>Stock Bajo</span>
+                                        <?php else: ?>
+                                            <span>Activo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?> 
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">No hay productos registrados</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

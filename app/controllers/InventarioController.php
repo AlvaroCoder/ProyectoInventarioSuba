@@ -11,11 +11,15 @@ class InventarioController {
 
     public function index() {
         $productos = $this->model->getAllProducts();
+        $totalProductos = $this->model->getCountProducts();
+        $precioTotal = $this->model->getSumProducts();
+        $productosActivos = $this->model->getCountActiveProducts();
         require_once __DIR__ . '/../views/dashboard/inventario/index.php';
     }
 
+    
     public function store(){
-        
+
     }
 }
 
