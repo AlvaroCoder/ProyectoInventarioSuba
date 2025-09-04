@@ -8,45 +8,15 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .kpi-card {
-            border-radius: 12px;
-            transition: transform 0.2s ease;
-        }
-        .kpi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .progress {
-            height: 12px;
-            border-radius: 8px;
-        }
-        .sidebar {
-            background: linear-gradient(180deg, #0d6efd, #0b5ed7);
-            color: #fff;
-            height: 100vh;
-            position: fixed;
-            width: 250px;
-        }
-        .sidebar .nav-link {
-            color: #fff;
-            font-weight: 500;
-        }
-        .sidebar .nav-link.active {
-            background: rgba(255,255,255,0.2);
-            border-radius: 8px;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        @media(max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-            }
-        }
+        body { background-color: #f8f9fa; }
+        .kpi-card { border-radius: 12px; transition: transform 0.2s ease; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .progress { height: 12px; border-radius: 8px; }
+        .sidebar { background: linear-gradient(180deg, #0d6efd, #0b5ed7); color: #fff; height: 100vh; position: fixed; width: 250px; }
+        .sidebar .nav-link { color: #fff; font-weight: 500; }
+        .sidebar .nav-link.active { background: rgba(255,255,255,0.2); border-radius: 8px; }
+        .main-content { margin-left: 250px; padding: 20px; }
+        @media(max-width: 768px) { .main-content { margin-left: 0; } }
     </style>
 </head>
 <body class="bg-light">
@@ -98,29 +68,30 @@
     <div class="card p-3 mb-4 shadow-sm">
         <div class="row g-3 align-items-center">
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Buscar por nombre o código...">
+                <input type="text" id="search" class="form-control" placeholder="Buscar por nombre...">
             </div>
             <div class="col-md-3">
-                <select class="form-select">
+                <select id="categoria" class="form-select">
                     <option value="">Filtrar por Categoría</option>
-                    <option>Medicamentos</option>
-                    <option>Accesorios</option>
-                    <option>Alimentos</option>
+                    <?php foreach($categorias as $categoria): ?>
+                        <option value="<?= $categoria['idCategoria'] ?>"><?= htmlspecialchars($categoria['nombre']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-md-3">
-                <select class="form-select">
-                    <option value="">Filtrar por Proveedor</option>
-                    <option>Proveedor A</option>
-                    <option>Proveedor B</option>
-                    <option>Proveedor C</option>
+                <select id="marca" class="form-select">
+                    <option value="">Filtrar por Marca</option>
+                    <?php foreach($marcas as $marca): ?>
+                        <option value="<?= $marca['idMarca'] ?>"><?= htmlspecialchars($marca['nombre']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-select">
-                    <option value="">Estado</option>
-                    <option>Activo</option>
-                    <option>Inactivo</option>
+                <select id="presentacion" class="form-select">
+                    <option value="">Filtrar por Presentación</option>
+                    <?php foreach($presentaciones as $presentacion): ?>
+                        <option value="<?= $presentacion['idPresentacion'] ?>"><?= htmlspecialchars($presentacion['nombre']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -130,56 +101,46 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="d-flex flex-row justify-content-between my-4 align-items-center">
-            
                 <h5 class="mb-3 fw-bold">Lista de Productos</h5>
-                <button
-                type="button"
-                class="btn btn-primary"
-                >
-                    Agregar Productos
-                </button>
+                <button type="button" class="btn btn-primary">Agregar Productos</button>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
+                <table class="table table-striped table-hover align-middle" id="productos-table">
                     <thead class="table-primary">
                         <tr>
                             <th>Código</th>
                             <th>Producto</th>
                             <th>Categoría</th>
+                            <th>Marca</th>
+                            <th>Presentación</th>
                             <th>Stock</th>
                             <th>Precio</th>
-                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="productos-tbody">
                         <?php if(!empty($productos)): ?>
-                            <?php  foreach($productos as $producto)  : ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($producto['id'])?></td>
-                                    <td><?= htmlspecialchars($producto['nombre'])?></td>
-                                    <td><?= htmlspecialchars($producto['categoria'])?></td>
-                                    <td><?= htmlspecialchars($producto['cantidad'])?></td>
-                                    <td>S/.<?= htmlspecialchars($producto['precio'])?></td>
-                                    <td>
-                                        <?php if($producto['cantidad'] <=10 ) : ?>
-                                            <span>Stock Bajo</span>
-                                        <?php else: ?>
-                                            <span>Activo</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary">Editar</button>
-                                        <button class="btn btn-sm btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
+                            <?php foreach($productos as $producto): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($producto['id'])?></td>
+                                <td><?= htmlspecialchars($producto['nombre'])?></td>
+                                <td><?= htmlspecialchars($producto['categoria'])?></td>
+                                <td><?= htmlspecialchars($producto['marca']) ?></td>
+                                <td><?= htmlspecialchars($producto['presentacion']) ?></td>
+                                <td><?= htmlspecialchars($producto['cantidad'])?></td>
+                                <td>S/.<?= htmlspecialchars($producto['precio'])?></td>
+                                <td>
+                                <button class="btn btn-sm btn-primary">Editar</button>
+                                <button class="btn btn-sm btn-danger">Eliminar</button>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>  
                         <?php else: ?>
                             <tr>
-                                <td colspan="7" class="text-center text-muted">No hay productos registrados</td>
+                            <td colspan="8" class="text-center text-muted">No hay productos registrados</td>
                             </tr>
                         <?php endif; ?>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -189,5 +150,87 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Filtro dinámico con JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) Datos del servidor -> JS (array completo de productos ya cargado)
+  window.PRODUCTOS = <?= json_encode($productos, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
+
+  const $search = document.getElementById('search');
+  const $categoria = document.getElementById('categoria');
+  const $marca = document.getElementById('marca');
+  const $presentacion = document.getElementById('presentacion');
+  const $tbody = document.getElementById('productos-tbody');
+
+  // util: quitar acentos y pasar a minúsculas
+  const norm = (s) => (s || '')
+    .toString()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase()
+    .trim();
+
+  function renderTable(rows) {
+    if (!rows.length) {
+      $tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="text-center text-muted">No se encontraron productos</td>
+        </tr>`;
+      return;
+    }
+
+    const html = rows.map(p => `
+      <tr>
+        <td>${escapeHtml(p.id)}</td>
+        <td>${escapeHtml(p.nombre)}</td>
+        <td>${escapeHtml(p.categoria ?? '')}</td>
+        <td>${escapeHtml(p.marca ?? '')}</td>
+        <td>${escapeHtml(p.presentacion ?? '')}</td>
+        <td>${escapeHtml(p.cantidad)}</td>
+        <td>S/.${escapeHtml(p.precio)}</td>
+        <td>
+          <button class="btn btn-sm btn-primary">Editar</button>
+          <button class="btn btn-sm btn-danger">Eliminar</button>
+        </td>
+      </tr>`).join('');
+    $tbody.innerHTML = html;
+  }
+
+  function escapeHtml(v) {
+    return String(v)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function filtrarProductos() {
+    const q = norm($search.value);
+    const cat = $categoria.value;      // nombre (no id)
+    const mar = $marca.value;          // nombre (no id)
+    const pre = $presentacion.value;   // nombre (no id)
+
+    const filtrados = window.PRODUCTOS.filter(p => {
+      const byName = q ? norm(p.nombre).includes(q) : true;
+      const byCat  = cat ? (p.categoria === cat) : true;
+      const byMar  = mar ? (p.marca === mar) : true;
+      const byPre  = pre ? (p.presentacion === pre) : true;
+      return byName && byCat && byMar && byPre;
+    });
+
+    renderTable(filtrados);
+  }
+
+  // 2) Listeners "tipo onChange" (en tiempo real)
+  $search.addEventListener('input', filtrarProductos);
+  $categoria.addEventListener('change', filtrarProductos);
+  $marca.addEventListener('change', filtrarProductos);
+  $presentacion.addEventListener('change', filtrarProductos);
+
+  // 3) Render inicial
+  renderTable(window.PRODUCTOS);
+});
+</script>
 </body>
 </html>

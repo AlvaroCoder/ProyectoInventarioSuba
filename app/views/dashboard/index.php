@@ -62,7 +62,9 @@
                 <div class="card kpi-card shadow-sm text-center p-3">
                     <i data-lucide="alert-triangle" class="text-danger mb-2" style="width: 32px; height: 32px;"></i>
                     <h6 class="text-muted">Productos con Bajo Stock</h6>
-                    <h3 class="text-danger fw-bold">12</h3>
+                    <h3 class="text-danger fw-bold">
+                        <?= htmlspecialchars($productosBajoStock['productosInactivos']) ?>
+                    </h3>
                     <small class="text-muted">Última actualización: Hoy</small>
                 </div>
             </div>
