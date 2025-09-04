@@ -15,30 +15,26 @@ class VentasController {
     // ✅ Muestra todas las ventas del día
     public function index() {
         $ventas = $this->ventasModel->fetchAllVentas();
-        $totalVentas = $this->ventasModel->getTodasVentaDia();
-        $montoTotal = $this->ventasModel->getTotalVentas();
-
+        $totalVentasDias = $this->ventasModel->getTodasVentaDia();
+        $numeroVentasHoy = $this->ventasModel->getCountAllVentasHoy();
+        $numeroTransacciones = isset($numeroVentasHoy['ventas_hoy']);
+        $montoTotal = $this->ventasModel->getTotalVentasHoy();
+        $ingresosSemana = $this->ventasModel->getSumTotalVentasSemana();
+        $ticketPromedio = isset($montoTotal['total_ventas']) / isset($numeroVentasHoy['ventas_hoy']);
         // Cuando tengas la vista:
-        // include __DIR__ . '/../views/ventas/index.php';
+        include __DIR__ . '/../views/dashboard/ventas/index.php';
 
-        echo json_encode([
-            'ventas' => $ventas,
-            'total_ventas' => $totalVentas['total_ventas'],
-            'monto_total' => $montoTotal['monto_total']
-        ]);
     }
 
     // ✅ Muestra el formulario para crear una venta (usará las vistas)
     public function create() {
         // Obtenemos productos disponibles desde Inventario
         $productos = $this->inventarioModel->getAllProducts();
+        $categorias = $this->inventarioModel->getCategorias();
+        $marcas = $this->inventarioModel->getMarcas();
+        $presentaciones = $this->inventarioModel->getPresentaciones();
 
-        // Cuando tengas la vista:
-        // include __DIR__ . '/../views/ventas/create.php';
-
-        echo json_encode([
-            'productos' => $productos
-        ]);
+        include __DIR__ . '/../views/dashboard/ventas/create.php';
     }
 
     // ✅ Procesa la creación de una nueva venta

@@ -8,21 +8,37 @@ class Ventas {
     }
 
     public function fetchAllVentas() {
-        $sql = "SELECT * FROM ventas WHERE DATE(fecha_venta) = CURDATE();";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getTodasVentaDia() {
-        $sql = "SELECT COUNT(*) AS total_ventas FROM ventas WHERE DATE(fecha_venta) = CURDATE();";
+        $sql = "SELECT * FROM ventas WHERE DATE(fecha) = CURDATE();";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getTotalVentas() {
-        $sql = "SELECT SUM(total) AS monto_total FROM ventas WHERE DATE(fecha_venta) = CURDATE();";
+    public function getCountAllVentasHoy(){
+        $sql = "SELECT COUNT(*) AS ventas_hoy FROM ventas WHERE DATE(fecha) = CURDATE();";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getSumTotalVentasSemana(){
+        $sql = "SELECT SUM(total) AS total_semana
+                FROM ventas
+                WHERE fecha >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);    
+    }
+
+    public function getTodasVentaDia() {
+        $sql = "SELECT COUNT(*) AS total_ventas FROM ventas WHERE DATE(fecha) = CURDATE();";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalVentasHoy() {
+        $sql = "SELECT SUM(total) AS monto_total FROM ventas WHERE DATE(fecha) = CURDATE();";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);

@@ -74,7 +74,9 @@
                 <select id="categoria" class="form-select">
                     <option value="">Filtrar por Categoría</option>
                     <?php foreach($categorias as $categoria): ?>
-                        <option value="<?= $categoria['idCategoria'] ?>"><?= htmlspecialchars($categoria['nombre']) ?></option>
+                        <option value="<?= htmlspecialchars($categoria['nombre']) ?>">
+                        <?= htmlspecialchars($categoria['nombre']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -82,7 +84,9 @@
                 <select id="marca" class="form-select">
                     <option value="">Filtrar por Marca</option>
                     <?php foreach($marcas as $marca): ?>
-                        <option value="<?= $marca['idMarca'] ?>"><?= htmlspecialchars($marca['nombre']) ?></option>
+                        <option value="<?= htmlspecialchars($marca['nombre']) ?>">
+                        <?= htmlspecialchars($marca['nombre']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -90,10 +94,13 @@
                 <select id="presentacion" class="form-select">
                     <option value="">Filtrar por Presentación</option>
                     <?php foreach($presentaciones as $presentacion): ?>
-                        <option value="<?= $presentacion['idPresentacion'] ?>"><?= htmlspecialchars($presentacion['nombre']) ?></option>
+                        <option value="<?= htmlspecialchars($presentacion['nombre']) ?>">
+                        <?= htmlspecialchars($presentacion['nombre']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
+            <!-- Categoría -->
         </div>
     </div>
 
@@ -102,7 +109,11 @@
         <div class="card-body">
             <div class="d-flex flex-row justify-content-between my-4 align-items-center">
                 <h5 class="mb-3 fw-bold">Lista de Productos</h5>
-                <button type="button" class="btn btn-primary">Agregar Productos</button>
+                <button type="button" class="btn btn-primary">
+                    <a 
+                    class="text-white text-decoration-none"
+                    href="/index.php?url=dashboard/inventario/create">Agregar Productos</a>
+                </button>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle" id="productos-table">
@@ -140,7 +151,7 @@
                             <td colspan="8" class="text-center text-muted">No hay productos registrados</td>
                             </tr>
                         <?php endif; ?>
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>

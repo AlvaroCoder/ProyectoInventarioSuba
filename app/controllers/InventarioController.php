@@ -47,9 +47,12 @@ class InventarioController {
             $nombre = $_POST['nombre'];
             $cantidad = $_POST['cantidad'];
             $precio = $_POST['precio'];
-
-            if ($this->model->insert($nombre, $cantidad, $precio)) {
-                header("Location: /inventario");
+            $idCategoria = $_POST['categoria'];
+            $idMarca = $_POST['marca'];
+            $idPresentacion = $_POST['presentacion'];
+    
+            if ($this->model->insert($nombre, $cantidad, $precio, $idCategoria, $idMarca, $idPresentacion, $estado)) {
+                header("Location: /index.php?url=dashboard/inventario");
                 exit;
             } else {
                 echo "Error al agregar el producto.";

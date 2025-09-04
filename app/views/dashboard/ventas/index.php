@@ -44,7 +44,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">Total Ventas Día</h6>
-                    <h3 class="fw-bold text-success">S/ 3,450</h3>
+                    <h3 class="fw-bold text-success">S/ <?= number_format(isset($totalVentasDia), 2) ?></h3>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">Ticket Promedio</h6>
-                    <h3 class="fw-bold text-primary">S/ 57.50</h3>
+                    <h3 class="fw-bold text-primary">S/ <?= number_format(isset($ticketPromedio), 2) ?></h3>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">N° Transacciones</h6>
-                    <h3 class="fw-bold text-warning">60</h3>
+                    <h3 class="fw-bold text-warning"><?= $numeroTransacciones ?></h3>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">Ingresos Semana</h6>
-                    <h3 class="fw-bold text-info">S/ 12,800</h3>
+                    <h3 class="fw-bold text-info">S/ <?= number_format(isset($ingresosSemana['total_semana']), 2) ?></h3>
                 </div>
             </div>
         </div>
@@ -86,8 +86,8 @@
                 </select>
             </div>
             <div class="col-md-6 d-flex gap-2">
-                <button class="btn btn-success">Generar Boleta</button>
-                <button class="btn btn-primary">Nueva Venta</button>
+                <a href="/dashboard/ventas/generar_boleta" class="btn btn-success">Generar Boleta</a>
+                <a href="/index.php?url=/dashboard/ventas/create" class="btn btn-primary">Nueva Venta</a>
             </div>
         </div>
     </div>
@@ -112,48 +112,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>TXN001</td>
-                            <td>2025-08-16</td>
-                            <td>Juan Pérez</td>
-                            <td>3</td>
-                            <td>S/ 150.00</td>
-                            <td>S/ 10.00</td>
-                            <td>S/ 140.00</td>
-                            <td>Efectivo</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Ver</button>
-                                <button class="btn btn-sm btn-success">Boleta</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TXN002</td>
-                            <td>2025-08-16</td>
-                            <td>Ana Torres</td>
-                            <td>5</td>
-                            <td>S/ 250.00</td>
-                            <td>S/ 0.00</td>
-                            <td>S/ 250.00</td>
-                            <td>Tarjeta</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Ver</button>
-                                <button class="btn btn-sm btn-success">Boleta</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TXN003</td>
-                            <td>2025-08-15</td>
-                            <td>Carlos Gómez</td>
-                            <td>2</td>
-                            <td>S/ 80.00</td>
-                            <td>S/ 5.00</td>
-                            <td>S/ 75.00</td>
-                            <td>QR</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Ver</button>
-                                <button class="btn btn-sm btn-success">Boleta</button>
-                            </td>
-                        </tr>
+                        <?php if (!empty($ventas)): ?>
+                            <?php foreach ($ventas as $venta): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($venta['codigo_transaccion']) ?></td>
+                                    <td><?= htmlspecialchars($venta['fecha']) ?></td>
+                                    <td><?= htmlspecialchars($venta['cliente']) ?></td>
+                                    <td><?= htmlspecialchars($venta['cantidad_productos']) ?></td>
+                                    <td>S/ <?= number_format($venta['subtotal'], 2) ?></td>
+                                    <td>S/ <?= number_format($venta['descuento'], 2) ?></td>
+                                    <td>S/ <?= number_format($venta['total'], 2) ?></td>
+                                    <td><?= htmlspecialchars($venta['metodo_pago']) ?></td>
+                                    <td>
+                                        <a href="/dashboard/ventas/ver/<?= $venta['id'] ?>" class="btn btn-sm btn-secondary">Ver</a>
+                                        <a href="/dashboard/ventas/boleta/<?= $venta['id'] ?>" class="btn btn-sm btn-success">Boleta</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="9" class="text-center text-muted">No hay ventas registradas.</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

@@ -32,12 +32,32 @@ $router->add($base_route_dashboard . '/inventario',function(){
     return $contoller->index();
 });
 
+$router->add($base_route_dashboard . '/inventario/create', function(){
+    require_once './app/controllers/InventarioController.php';
+    $controller = new InventarioController();
+    return $controller->create();
+});
+
+$router->add($base_route_dashboard . '/inventario/store',function(){
+    require_once './app/controllers/InventarioController.php';
+    $controller = new InventarioController();
+    return $controller->store();
+});
+
 $router->add($base_route_dashboard . '/caja',function(){
     require_once './app/views/dashboard/caja/index.php';
 });
 
 $router->add($base_route_dashboard . "/ventas",function(){
-    require_once './app/views/dashboard/ventas/index.php';
+    require_once './app/controllers/VentasController.php';
+    $controller = new VentasController();
+    return $controller->index();
+});
+
+$router->add($base_route_dashboard . "/ventas/create", function(){
+    require_once './app/controllers/VentasController.php';
+    $controller = new VentasController();
+    return $controller->create();
 });
 
 $router->add($base_route_dashboard . "/ventas/generar_boleta", function(){
