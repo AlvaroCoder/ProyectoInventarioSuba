@@ -16,7 +16,7 @@
 <section class="container my-5">
     <h2 class="mb-4 text-primary fw-bold">Registrar Nueva Venta</h2>
 
-    <form action="/dashboard/ventas/store" method="POST">
+    <form action="/index.php?url=/dashboard/ventas/store" method="POST">
         <div class="row mb-4">
             <!-- Nombre del Cliente -->
             <div class="col-md-6">
@@ -154,9 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtroMarca = document.getElementById("filtro-marca");
     const tablaProductos = document.getElementById("tabla-productos");
     const tablaDetalleProductos = document.getElementById("tabla-detalle");
+    const subtotalSpan = document.getElementById("subtotal");
     const totalSpan = document.getElementById("total");
+    const descuentoInput = document.getElementById("descuento");
     const productos = <?php echo json_encode($productos); ?>;
-    
+    const productosJson = document.getElementById("productos-json");
+
     let detalle= [];
 
     function filtrarProductos() {
@@ -214,6 +217,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </td>
             </tr>
         `).join("");
+
+        const subtotal = detalle.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+        const descuento = parseFloat(descuentoInput.value) || 0;
+        const total = subtotal - descuento;
+
+        subtotalSpan.textContent = subtotal.toFixed(2);
+        totalSpan.textContent = total.toFixed(2);
+        productosJson.value = JSON.stringify(detalle);
     }
 
     window.agregarProducto = (id, nombre, precio) => {
@@ -232,6 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cantidad.innerHTML="";
 
     };
+    descuentoInput.addEventListener("input", actualizarDetalle);
 });
 </script>
 

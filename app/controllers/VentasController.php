@@ -12,23 +12,18 @@ class VentasController {
         $this->inventarioModel = new Inventario();
     }
 
-    // ✅ Muestra todas las ventas del día
     public function index() {
         $ventas = $this->ventasModel->fetchAllVentas();
-        $totalVentasDias = $this->ventasModel->getTodasVentaDia();
         $numeroVentasHoy = $this->ventasModel->getCountAllVentasHoy();
-        $numeroTransacciones = isset($numeroVentasHoy['ventas_hoy']);
+        $numeroTransacciones = $numeroVentasHoy['ventas_hoy'] ?? 0;
         $montoTotal = $this->ventasModel->getTotalVentasHoy();
         $ingresosSemana = $this->ventasModel->getSumTotalVentasSemana();
-        $ticketPromedio = isset($montoTotal['total_ventas']) / isset($numeroVentasHoy['ventas_hoy']);
-        // Cuando tengas la vista:
+        $ticketPromedio = ($numeroTransacciones > 0) ? ( $montoTotal['monto_total'] ?? 1) / $numeroTransacciones : 0;
         include __DIR__ . '/../views/dashboard/ventas/index.php';
 
     }
 
-    // ✅ Muestra el formulario para crear una venta (usará las vistas)
     public function create() {
-        // Obtenemos productos disponibles desde Inventario
         $productos = $this->inventarioModel->getAllProducts();
         $categorias = $this->inventarioModel->getCategorias();
         $marcas = $this->inventarioModel->getMarcas();
@@ -37,29 +32,44 @@ class VentasController {
         include __DIR__ . '/../views/dashboard/ventas/create.php';
     }
 
-    // ✅ Procesa la creación de una nueva venta
     public function store() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $cliente = $_POST['cliente'] ?? 'Cliente Genérico';
-            $total = $_POST['total'] ?? 0;
-
-            // Esperamos que los productos lleguen como JSON
-            $productos = json_decode($_POST['productos'], true);
-
-            if (!is_array($productos) || empty($productos)) {
-                echo json_encode(['error' => 'No se enviaron productos']);
-                return;
-            }
-
-            try {
-                $ventaId = $this->ventasModel->insertVenta($cliente, $total, $productos);
-                echo json_encode(['success' => true, 'venta_id' => $ventaId]);
-            } catch (Exception $e) {
-                echo json_encode(['error' => $e->getMessage()]);
-            }
-        } else {
-            echo json_encode(['error' => 'Método no permitido']);
+        // Capturar datos del formulario
+        $cliente = $_POST['cliente'] ?? '';
+        $metodo_pago = $_POST['metodo_pago'] ?? '';
+        $descuento = floatval($_POST['descuento'] ?? 0);
+    
+        // Capturar productos en formato JSON y convertir a array
+        $productos_json = $_POST['productos'] ?? '[]';
+        $productos = json_decode($productos_json, true);
+    
+        // Validar datos mínimos
+        if (empty($cliente) || empty($metodo_pago) || empty($productos)) {
+            die("Datos incompletos");
         }
+    
+        // Calcular subtotal y total
+        $subtotal = 0;
+        foreach ($productos as $p) {
+            $subtotal += $p['precio'] * $p['cantidad'];
+        }
+        $total = $subtotal - $descuento;
+    
+        // Guardar venta en la base de datos
+        $venta_id = $this->ventasModel->insertarVenta(
+            $cliente, 
+            $metodo_pago, 
+            $subtotal, 
+            $descuento, 
+            $total);
+        
+        // Guardar detalles de la venta
+        foreach ($productos as $p) {
+            $this->ventasModel->insertarDetalleVenta($venta_id, $p['id'], $p['cantidad'], $p['precio']);
+            $this->inventarioModel->updateStock($p['id'], $p['cantidad']);
+        }
+    
+        // Redirigir o mostrar mensaje
+        header("Location: /index.php?url=/dashboard/ventas");
     }
 
     // ✅ Muestra el detalle de una venta específica

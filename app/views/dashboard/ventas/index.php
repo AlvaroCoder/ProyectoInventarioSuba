@@ -44,7 +44,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">Total Ventas Día</h6>
-                    <h3 class="fw-bold text-success">S/ <?= number_format(isset($totalVentasDia), 2) ?></h3>
+                    <h3 class="fw-bold text-success">S/ <?= number_format($montoTotal['monto_total'] ?? 0, 2) ?></h3>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="card text-center shadow-sm kpi-card">
                 <div class="card-body">
                     <h6 class="text-muted">Ingresos Semana</h6>
-                    <h3 class="fw-bold text-info">S/ <?= number_format(isset($ingresosSemana['total_semana']), 2) ?></h3>
+                    <h3 class="fw-bold text-info">S/ <?= number_format($ingresosSemana['total_semana'] ?? 0, 2) ?></h3>
                 </div>
             </div>
         </div>
@@ -103,7 +103,6 @@
                             <th># Transacción</th>
                             <th>Fecha</th>
                             <th>Cliente</th>
-                            <th>Productos</th>
                             <th>Subtotal</th>
                             <th>Descuento</th>
                             <th>Total</th>
@@ -115,17 +114,16 @@
                         <?php if (!empty($ventas)): ?>
                             <?php foreach ($ventas as $venta): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($venta['codigo_transaccion']) ?></td>
+                                    <td><?= htmlspecialchars($venta['idVenta']) ?></td>
                                     <td><?= htmlspecialchars($venta['fecha']) ?></td>
-                                    <td><?= htmlspecialchars($venta['cliente']) ?></td>
-                                    <td><?= htmlspecialchars($venta['cantidad_productos']) ?></td>
+                                    <td><?= htmlspecialchars($venta['cliente_nombre']) ?></td>
                                     <td>S/ <?= number_format($venta['subtotal'], 2) ?></td>
                                     <td>S/ <?= number_format($venta['descuento'], 2) ?></td>
                                     <td>S/ <?= number_format($venta['total'], 2) ?></td>
                                     <td><?= htmlspecialchars($venta['metodo_pago']) ?></td>
                                     <td>
-                                        <a href="/dashboard/ventas/ver/<?= $venta['id'] ?>" class="btn btn-sm btn-secondary">Ver</a>
-                                        <a href="/dashboard/ventas/boleta/<?= $venta['id'] ?>" class="btn btn-sm btn-success">Boleta</a>
+                                        <a href="/index.php?url=/dashboard/ventas/ver/<?= $venta['idVenta'] ?>" class="btn btn-sm btn-secondary">Ver</a>
+                                        <a href="/index.php?url=/dashboard/ventas/boleta/<?= $venta['idVenta'] ?>" class="btn btn-sm btn-success">Boleta</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

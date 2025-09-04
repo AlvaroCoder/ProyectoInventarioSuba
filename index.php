@@ -60,6 +60,12 @@ $router->add($base_route_dashboard . "/ventas/create", function(){
     return $controller->create();
 });
 
+$router->add($base_route_dashboard . "/ventas/store", function(){
+    require_once './app/controllers/VentasController.php';
+    $controller = new VentasController();
+    return $controller->store();
+});
+
 $router->add($base_route_dashboard . "/ventas/generar_boleta", function(){
     require_once './app/views/dashboard/ventas/generar_boleta.php';
 });
